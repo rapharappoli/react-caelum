@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Tweet } from './components/Tweet/Tweet.js'
@@ -22,7 +23,11 @@ const listaTweets = [
     "Tweet 3"
 ]
 
-const $listaTweets = listaTweets.map(conteudo => Tweet(conteudo))
+const $listaTweets = listaTweets.map(
+    conteudo => (
+        <Tweet qtLikes={2}>{conteudo}</Tweet>
+    )
+)
 
 ReactDOM.render(
     $listaTweets,
