@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Tweet } from './components/Tweet/Tweet.js'
+import { Home } from './pages/Home.js'
 
 import './css/reset.css'
 import './css/container.css'
@@ -17,19 +17,7 @@ import './css/widget.css'
 import './css/novoTweet.css'
 import './css/trendsArea.css'
 
-const listaTweets = [
-    "Tweet 1",
-    "Tweet 2",
-    "Tweet 3"
-]
-
-const $listaTweets = listaTweets.map(
-    conteudo => (
-        <Tweet qtLikes={2}>{conteudo}</Tweet>
-    )
-)
-
-ReactDOM.render(
-    $listaTweets,
-    document.querySelector('.tweetsArea')
+ReactDOM.hydrate(
+    <Home />,
+    document.querySelector('body')
 )
