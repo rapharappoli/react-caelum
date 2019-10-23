@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../css/novoTweet.css'
 
@@ -18,6 +18,14 @@ const listaTweets = [
 ]
 
 export function Home() {
+
+    const [ textoTweet, setTamanhoDoTweet ] = useState("")
+
+    function validaTweet(evento) {
+        const $textArea = evento.target
+        setTamanhoDoTweet($textArea.value)
+    }
+
     return (
     <React.Fragment>
         <Cabecalho>
@@ -30,8 +38,8 @@ export function Home() {
                 <Widget>
                     <form className="novoTweet">
                         <div className="novoTweet__editorArea">
-                            <span className="novoTweet__status">0/140</span>
-                            <textarea className="novoTweet__editor" placeholder="O que está acontecendo?"></textarea>
+                            <span className="novoTweet__status">{ textoTweet.length }/140</span>
+                            <textarea className="novoTweet__editor" placeholder="O que está acontecendo?" onChange={ validaTweet }></textarea>
                         </div>
                         <button type="submit" className="novoTweet__envia">Tweetar</button>
                     </form>
