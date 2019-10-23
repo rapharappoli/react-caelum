@@ -10,20 +10,20 @@ import { Cabecalho,
     Tweet
 } from '../components/index.js'
 
-
-const listaTweets = [
-    "Tweet 1",
-    "Tweet 2",
-    "Tweet 3"
-]
-
 export function Home() {
 
-    const [ textoTweet, setTamanhoDoTweet ] = useState("")
+    const [ textoTweet, setTextoTweet ] = useState("")
+    const [ listaTweets, setListaTweets ] = useState([])
 
     function validaTweet(evento) {
         const $textArea = evento.target
-        setTamanhoDoTweet($textArea.value)
+        setTextoTweet($textArea.value)
+    }
+
+    function onFormSubmit(evento) {
+        evento.preventDefault()
+
+        setListaTweets([ textoTweet, ...listaTweets ])
     }
 
     const isValidTweet = textoTweet.length > 140
@@ -39,7 +39,7 @@ export function Home() {
 
             <Dashboard>
                 <Widget>
-                    <form className="novoTweet">
+                    <form className="novoTweet" onSubmit={ onFormSubmit }>
                         <div className="novoTweet__editorArea">
                             <span className={ classeStatus }>{ textoTweet.length }/140</span>
                             <textarea className="novoTweet__editor" placeholder="O que está acontecendo?" onChange={ validaTweet }></textarea>
