@@ -26,6 +26,9 @@ export function Home() {
         setTamanhoDoTweet($textArea.value)
     }
 
+    const isValidTweet = textoTweet.length > 140
+    const classeStatus = "novoTweet__status" + (isValidTweet ? " novoTweet__status--invalido" : "")
+
     return (
     <React.Fragment>
         <Cabecalho>
@@ -38,10 +41,10 @@ export function Home() {
                 <Widget>
                     <form className="novoTweet">
                         <div className="novoTweet__editorArea">
-                            <span className="novoTweet__status">{ textoTweet.length }/140</span>
+                            <span className={ classeStatus }>{ textoTweet.length }/140</span>
                             <textarea className="novoTweet__editor" placeholder="O que está acontecendo?" onChange={ validaTweet }></textarea>
                         </div>
-                        <button type="submit" className="novoTweet__envia">Tweetar</button>
+                        <button disabled={ isValidTweet } type="submit" className="novoTweet__envia">Tweetar</button>
                     </form>
                 </Widget>
 
