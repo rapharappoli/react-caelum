@@ -1,6 +1,15 @@
 import React from 'react'
 
-import { Tweet } from '../components/Tweet/Tweet.js'
+import '../css/novoTweet.css'
+
+import { Cabecalho,
+    NavMenu,
+    Dashboard,
+    Widget,
+    TrendsArea,
+    Tweet
+} from '../components/index.js'
+
 
 const listaTweets = [
     "Tweet 1",
@@ -10,75 +19,41 @@ const listaTweets = [
 
 export function Home() {
     return (
-    <>
-        <header class="cabecalho">
-            <div class="cabecalho__container container">
-                <h1 class="cabecalho__logo">
-                    <a href="/">Twitelum</a>
-                </h1>
-                <nav class="navMenu">
-                    <ul class="navMenu__lista">
-                        <li class="navMenu__item">
-                            <a class="navMenu__link" href="/">
-                                Bem vindo(a): <br />
-                                <strong> @artdiniz</strong>
-                            </a>
-                        </li>
-                        <li class="navMenu__item">
-                            <a class="navMenu__link" href="/">
-                                Página Inicial
-                            </a>
-                        </li>
-                        <li class="navMenu__item">
-                            <a class="navMenu__link" href="/hashtags">
-                                Hashtags
-                            </a>
-                        </li>
-                        <li class="navMenu__item">
-                            <a class="navMenu__link" href="/logout">
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+    <React.Fragment>
+        <Cabecalho>
+            <NavMenu usuario="@usuario"/>
+        </Cabecalho>
 
-        <div class="container">
+        <div className="container">
 
-            <div class="dashboard">
-                <div class="widget">
-                    <form class="novoTweet">
-                        <div class="novoTweet__editorArea">
-                            <span class="novoTweet__status">0/140</span>
-                            <textarea class="novoTweet__editor" placeholder="O que está acontecendo?"></textarea>
+            <Dashboard>
+                <Widget>
+                    <form className="novoTweet">
+                        <div className="novoTweet__editorArea">
+                            <span className="novoTweet__status">0/140</span>
+                            <textarea className="novoTweet__editor" placeholder="O que está acontecendo?"></textarea>
                         </div>
-                        <button type="submit" class="novoTweet__envia">Tweetar</button>
+                        <button type="submit" className="novoTweet__envia">Tweetar</button>
                     </form>
-                </div>
-                <div class="widget">
-                    <div class="trendsArea">
-                        <h2 class="trendsArea__titulo widget__titulo">Trends Brasil</h2>
-                        <ol class="trendsArea__lista">
-                            <li><a href="/">#bagulhos</a></li>
-                            <li><a href="/">#bagulheiros</a></li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+                </Widget>
 
-            <div class="dashboard dashboard__centro">
-                <div class="widget">
-                    <div class="tweetsArea">
+                <Widget>
+                    <TrendsArea></TrendsArea>
+                </Widget>
+            </Dashboard>
+
+            <Dashboard posicao="centro">
+                <Widget>
+                    <div className="tweetsArea">
                         { listaTweets.map(conteudo => (
                             <Tweet qtLikes={2}>
                                 {conteudo}
                             </Tweet>
                         )) }
                     </div>
-                </div>
-            </div>
+                </Widget>
+            </Dashboard>
 
         </div>
-    </>)
+    </React.Fragment>)
 }
