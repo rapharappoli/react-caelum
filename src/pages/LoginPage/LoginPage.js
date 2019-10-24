@@ -4,10 +4,30 @@ import { Widget } from '../../components/Widget/Widget.js'
 
 import './loginPage.css'
 
+// Custom Hook
+function useStateBoolean(valorInicial) {
+
+    const [ valorDaVariavel, setValorDaVariavelReact ] = useState(valorInicial)
+
+    const setValorDaVariavel = function(valorNovo) {
+        if (typeof valorNovo !== "boolean"){
+            throw Error("Tipo inválido: " + typeof valorNovo)
+        }
+
+        setValorDaVariavelReact(valorNovo)
+    }
+
+    return [
+        valorDaVariavel,
+        setValorDaVariavel
+    ]
+
+}
+
 export function LoginPage() {
 
-    const [ isValidUser, setIsValidUser ] = useState(true)
-    const [ isValidPass, setIsValidPass ] = useState(true)
+    const [ isValidUser, setIsValidUser ] = useStateBoolean(true)
+    const [ isValidPass, setIsValidPass ] = useStateBoolean(true)
 
     const $inputLogin = useRef(null)
     const $inputSenha = useRef(null)

@@ -1,6 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './tweet.css'
+
+Tweet.propTypes = {
+    qtLikes: PropTypes.number
+}
 
 // Componente é uma função
 export function Tweet(props) {
