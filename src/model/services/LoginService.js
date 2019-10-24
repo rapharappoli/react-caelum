@@ -27,3 +27,7 @@ export async function logar(usuario, senha) {
 
     throw new Error('Token não encontrado')
 }
+
+export function isAuthenticated() {
+    return localStorage.getItem('TOKEN') !== null
+}

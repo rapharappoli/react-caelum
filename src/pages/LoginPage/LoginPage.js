@@ -6,6 +6,8 @@ import './loginPage.css'
 
 import * as LoginService from '../../model/services/LoginService.js'
 
+import { Redirect } from 'react-router-dom'
+
 // Custom Hook
 function useStateBoolean(valorInicial) {
 
@@ -25,11 +27,13 @@ function useStateBoolean(valorInicial) {
     ]
 }
 
-export function LoginPage() {
+export function LoginPage(props) {
 
     const [ isValidUser, setIsValidUser ] = useStateBoolean(true)
     const [ isValidPass, setIsValidPass ] = useStateBoolean(true)
     const [ isValidLogin, setIsValidLogin ] = useStateBoolean(true)
+
+    const isAuthenticated = LoginService.isAuthenticated()    
 
     const $inputLogin = useRef(null)
     const $inputSenha = useRef(null)
@@ -48,14 +52,14 @@ export function LoginPage() {
 
         if(isValidUser && isValidPass) {
             LoginService.logar(usuario, senha)
-                .then(setIsValidLogin(true))
+                .then(() => props.history.push('/'))
                 .catch(error => setIsValidLogin(false))
         } else {
             setIsValidLogin(true)
         }
     }
 
-    return (
+    const $pagina = (
         <Fragment>
             <Cabecalho />
             <div className="loginPage">
@@ -101,6 +105,16 @@ export function LoginPage() {
                     </Widget>
                 </div>
             </div>
+        </Fragment>
+    )
+
+    return (
+        <Fragment>
+            {
+                !isAuthenticated
+                ? $pagina
+                : <Redirect to="/" />
+            }
         </Fragment>
     )
 }
