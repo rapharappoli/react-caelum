@@ -4,6 +4,8 @@ import { Widget } from '../../components/Widget/Widget.js'
 
 import './loginPage.css'
 
+import * as LoginService from '../../model/services/LoginService.js'
+
 // Custom Hook
 function useStateBoolean(valorInicial) {
 
@@ -21,13 +23,13 @@ function useStateBoolean(valorInicial) {
         valorDaVariavel,
         setValorDaVariavel
     ]
-
 }
 
 export function LoginPage() {
 
     const [ isValidUser, setIsValidUser ] = useStateBoolean(true)
     const [ isValidPass, setIsValidPass ] = useStateBoolean(true)
+    const [ isValidLogin, setIsValidLogin ] = useStateBoolean(true)
 
     const $inputLogin = useRef(null)
     const $inputSenha = useRef(null)
@@ -38,11 +40,19 @@ export function LoginPage() {
         const usuario = $inputLogin.current.value
         const senha = $inputSenha.current.value
 
-        const isInvalidUser = usuario.length === 0
-        const isInvalidPass = senha.length === 0
+        const isValidUser = usuario.length !== 0
+        const isValidPass = senha.length !== 0
 
-        setIsValidUser(!isInvalidUser)
-        setIsValidPass(!isInvalidPass)
+        setIsValidUser(isValidUser)
+        setIsValidPass(isValidPass)
+
+        if(isValidUser && isValidPass) {
+            LoginService.logar(usuario, senha)
+                .then(setIsValidLogin(true))
+                .catch(error => setIsValidLogin(false))
+        } else {
+            setIsValidLogin(true)
+        }
     }
 
     return (
@@ -72,6 +82,13 @@ export function LoginPage() {
                                 !isValidPass 
                                     ? <div className="loginPage__errorBox">
                                         Senha inválida.
+                                        </div>
+                                    : ''
+                            }
+                            {
+                                !isValidLogin 
+                                    ? <div className="loginPage__errorBox">
+                                        Usuário e/ou senha incorreto(a).
                                         </div>
                                     : ''
                             }
