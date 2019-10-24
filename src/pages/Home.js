@@ -15,7 +15,7 @@ export function Home() {
     const [ textoTweet, setTextoTweet ] = useState("")
     const [ listaTweets, setListaTweets ] = useState([])
 
-    function validaTweet(evento) {
+    function tweetValidate(evento) {
         const $textArea = evento.target
         setTextoTweet($textArea.value)
     }
@@ -42,7 +42,7 @@ export function Home() {
                     <form className="novoTweet" onSubmit={ onFormSubmit }>
                         <div className="novoTweet__editorArea">
                             <span className={ classeStatus }>{ textoTweet.length }/140</span>
-                            <textarea className="novoTweet__editor" placeholder="O que está acontecendo?" onChange={ validaTweet }></textarea>
+                            <textarea className="novoTweet__editor" placeholder="O que está acontecendo?" onChange={ tweetValidate }></textarea>
                         </div>
                         <button disabled={ isValidTweet } type="submit" className="novoTweet__envia">Tweetar</button>
                     </form>
